@@ -1,0 +1,19 @@
+{
+  "name": "nstal",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nstaldev/nstal.git"
+  },
+  "author": "Philippe Bernard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nstaldev/nstal/issues"
+  },
+  "homepage": "https://github.com/nstaldev/nstal#readme"
+}
