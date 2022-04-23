@@ -29,6 +29,9 @@ program.command('connect')
             ws.send(JSON.stringify({ status: 'invalidCode' }));
             ws.close();
           }
+        } else if (msg.command === 'envFile:addvar') {
+          console.log("Set var", msg.name, msg.value);
+          ws.send(JSON.stringify({ status: 'ok' }));
         } else {
           console.log(`Unknown command ${msg.command})}`);
         }
