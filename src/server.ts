@@ -7,6 +7,7 @@ import { OpenrpcDocument } from "@open-rpc/meta-schema";
 import doc from "./openrpc.json";
 import { WebSocketTransport } from "@open-rpc/client-js";
 import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/transports/websocket";
+import { HandleFunction } from "connect";
 
 export const ServerDocument: OpenrpcDocument = {
   openrpc: "1.0.0",
@@ -41,6 +42,13 @@ export class ServerSession {
     this.sessionCode = sessionCode;
   }
 
+  checkAuthentication() {
+    if (!this.authenticated) {
+      console.log("Not authenticated!");
+      throw new Error("Not authenticated");
+    }
+  }
+
   getMethodMapping(): MethodMapping {
     return {
       authenticate: async (sessionCode: string): Promise<boolean> => {
@@ -49,14 +57,28 @@ export class ServerSession {
         return this.authenticated;
       },
       envFileAddVar: async (name: string, value: string): Promise<any> => {
+        this.checkAuthentication();
         console.log(`TODO: Add entry ${name}=${value} to .env`);
         return '';
       }
     }
   }
+
+  authenticationMiddleware(): HandleFunction {
+    return async (req, res, next) => {
+      console.log("Check auth: " + this.authenticated);
+      if (!this.authenticated) {
+        next(new Error("Not authenticated"));
+        return;
+      }
+      next();
+    }
+  }
 }
 
 export async function start(sessionCode: string, port: number) {
+  const session = new ServerSession(sessionCode);
+
   const serverOptions: ServerOptions = {
     openrpcDocument: ServerDocument,
     transportConfigs: [
@@ -64,11 +86,13 @@ export async function start(sessionCode: string, port: number) {
         type: "WebSocketTransport",
         options: {
           port,
-          middleware: [],
+          // This middleware doesn't work:
+          // apparently, it is not called
+          middleware: [ session.authenticationMiddleware() ],
         } as WebSocketServerTransportOptions,
       }
     ],
-    methodMapping: new ServerSession(sessionCode).getMethodMapping(),
+    methodMapping: session.getMethodMapping(),
   };
 
   console.log("Starting Server"); // tslint:disable-line
