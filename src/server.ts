@@ -8,16 +8,7 @@ import doc from "./openrpc.json";
 import { WebSocketTransport } from "@open-rpc/client-js";
 import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/transports/websocket";
 
-const methodMapping: MethodMapping = {
-  addition: async (a: number, b: number) => a + b,
-  subtraction: async (a: number, b: number) => a - b,
-  'envFile:addVar': async (name: string, value: string): Promise<any> => {
-    console.log(`TODO: Add entry ${name}=${value} to .env`);
-    return '';
-  }
-};
-
-const openrpcDocument: OpenrpcDocument = {
+export const ServerDocument: OpenrpcDocument = {
   openrpc: "1.0.0",
   info: {
     title: "node-json-rpc-server example",
@@ -25,7 +16,14 @@ const openrpcDocument: OpenrpcDocument = {
   },
   methods: [
     {
-      name: "envFile:addVar",
+      name: "authenticate",
+      params: [
+        { name: "sessionCode", schema: { type: "string" } }
+      ],
+      result: { name: "authenticated", schema: { type: "boolean" } }
+    },
+    {
+      name: "envFileAddVar",
       params: [
         { name: "name", schema: { type: "string" } },
         { name: "value", schema: { type: "string" } }
@@ -35,9 +33,32 @@ const openrpcDocument: OpenrpcDocument = {
   ]
 };
 
-export async function start(port: number) {
+export class ServerSession {
+  sessionCode: string;
+  authenticated = false;
+
+  constructor(sessionCode: string) {
+    this.sessionCode = sessionCode;
+  }
+
+  getMethodMapping(): MethodMapping {
+    return {
+      authenticate: async (sessionCode: string): Promise<boolean> => {
+        this.authenticated = (this.sessionCode === sessionCode);
+        console.log(`Authentication with ${sessionCode}: ${this.authenticated}`);
+        return this.authenticated;
+      },
+      envFileAddVar: async (name: string, value: string): Promise<any> => {
+        console.log(`TODO: Add entry ${name}=${value} to .env`);
+        return '';
+      }
+    }
+  }
+}
+
+export async function start(sessionCode: string, port: number) {
   const serverOptions: ServerOptions = {
-    openrpcDocument, //: await parseOpenRPCDocument(doc as OpenrpcDocument),
+    openrpcDocument: ServerDocument,
     transportConfigs: [
       {
         type: "WebSocketTransport",
@@ -47,7 +68,7 @@ export async function start(port: number) {
         } as WebSocketServerTransportOptions,
       }
     ],
-    methodMapping
+    methodMapping: new ServerSession(sessionCode).getMethodMapping(),
   };
 
   console.log("Starting Server"); // tslint:disable-line

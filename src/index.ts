@@ -16,7 +16,7 @@ program.command('connect')
   .argument('<sessionCode>', 'Session code')
   .option<number>('-p, --port <port>', 'Port to connect to', parseInt, 8790)
   .action(async (sessionCode, options) => {
-    await start(options.port);
+    await start(sessionCode, options.port);
   });
 
 program.parse();
