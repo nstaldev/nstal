@@ -9,6 +9,7 @@ import { WebSocketTransport } from "@open-rpc/client-js";
 import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/transports/websocket";
 import { HandleFunction } from "connect";
 import { envFileAddEntry } from "./commands/env-file";
+import { createFile } from "./commands/create-file";
 
 export const ServerDocument: OpenrpcDocument = {
   openrpc: "1.0.0",
@@ -31,6 +32,14 @@ export const ServerDocument: OpenrpcDocument = {
         { name: "value", schema: { type: "string" } }
       ],
       result: { name: "change", schema: { type: "string" } }
+    },
+    {
+      name: "createFile",
+      params: [
+        { name: "path", schema: { type: "string" } },
+        { name: "content", schema: { type: "string" } }
+      ],
+      result: { name: "result", schema: { type: "boolean" } }
     }
   ]
 };
@@ -61,6 +70,11 @@ export class ServerSession {
         this.checkAuthentication();
         const change = await envFileAddEntry(name, value);
         return change.status;
+      },
+      createFile: async (path: string, content: string): Promise<any> => {
+        this.checkAuthentication();
+        const change = await createFile(path, content);
+        return true;
       }
     }
   }
