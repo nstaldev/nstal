@@ -4,7 +4,6 @@ import { MethodMapping } from "@open-rpc/server-js/build/router";
 import { HTTPServerTransportOptions } from "@open-rpc/server-js/build/transports/http";
 import { Type } from "@open-rpc/meta-schema";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
-import doc from "./openrpc.json";
 import { WebSocketTransport } from "@open-rpc/client-js";
 import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/transports/websocket";
 import { HandleFunction } from "connect";
