@@ -9,6 +9,8 @@ import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/trans
 import { HandleFunction } from "connect";
 import { envFileAddEntry } from "./commands/env-file";
 import { createFile } from "./commands/create-file";
+import { addCodeToFunction, addNamedImport } from "./commands/transform";
+import fs from 'fs/promises'
 
 export const ServerDocument: OpenrpcDocument = {
   openrpc: "1.0.0",
@@ -39,8 +41,28 @@ export const ServerDocument: OpenrpcDocument = {
         { name: "content", schema: { type: "string" } }
       ],
       result: { name: "result", schema: { type: "boolean" } }
-    }
-  ]
+    },
+    {
+      name: "addCodeToFunction",
+      params: [
+        { name: "path", schema: { type: "string" } },
+        { name: "funcName", schema: { type: "string" } },
+        { name: "code", schema: { type: "string" } },
+        { name: "dependencies", schema: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                package: { type: "string" }
+              }
+            }
+          }
+        }
+      ],
+      result: { name: "result", schema: { type: "boolean" } }
+    },
+  ],
 };
 
 export class ServerSession {
@@ -73,6 +95,18 @@ export class ServerSession {
       createFile: async (path: string, content: string): Promise<any> => {
         this.checkAuthentication();
         const change = await createFile(path, content);
+        return true;
+      },
+      addCodeToFunction: async (path: string, funcName: string, code: string, deps: any): Promise<any> => {
+        this.checkAuthentication();
+        let newCode = addCodeToFunction(
+          (await fs.readFile(path)).toString(), funcName, code
+        );
+        deps.forEach(dep => {
+          newCode = addNamedImport(newCode, dep.name, dep.package);
+        });
+        await fs.writeFile(path, newCode);
+
         return true;
       }
     }
