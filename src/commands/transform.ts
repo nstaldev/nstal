@@ -1,22 +1,19 @@
-import { transformSync } from '@babel/core';
-import template from "@babel/template";
 
-export const addNamedImport = (code: string, name: string, from: string): string => {
-  const output = transformSync(code, {
-    plugins: [
-      "@babel/plugin-syntax-jsx",
-      () => {
-        return {
-          visitor: {
-            Program(path) {
-              const buildImport = template(`import { ${name} } from '${from}';`)();
-              path.unshiftContainer('body', buildImport);
-            }
-          },
-        };
-      },
-    ]
-  });
+import { parse, print, types } from "recast";
+import { detectNewline } from "../utils";
 
-  return output.code;
+export const addNamedImport = (source: string, name: string, from: string): string => {
+  const code = parse(source);
+
+  const b = types.builders;
+  const importDeclaration = b.importDeclaration(
+    [ { type: 'ImportSpecifier', imported: { type: 'Identifier', name: name } } ],
+    { type: 'StringLiteral', value: from }
+  );
+
+  code.program.body.unshift(importDeclaration);
+
+  const output = print(code, { lineTerminator: detectNewline(source) }).code;
+
+  return output;
 }
