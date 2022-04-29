@@ -1,5 +1,5 @@
 import path from 'path'
-import mkdirp from 'mkdirp'
+const mkdirp = require('mkdirp');
 import fs from 'fs/promises'
 
 export const createFile = async (filePath: string, content: string): Promise<void> => {
