@@ -12,6 +12,7 @@ test('addNamedImport', () => {
 
   // TODO: Prevent duplicated imports
   // TODO: Add import to the end of the imports section
+  // TODO: Syntax error
 });
 
 
@@ -32,4 +33,8 @@ test('addCodeToFunction', () => {
       console.log("Hello world");
     }
   `);
+
+  // TODO: Arrow function
+  // TODO: Function is not present
+  // TODO: Syntax error
 });
