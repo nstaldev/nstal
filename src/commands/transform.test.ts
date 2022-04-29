@@ -1,4 +1,4 @@
-import { addNamedImport } from "./transform";
+import { addCodeToFunction, addNamedImport } from "./transform";
 
 test('addNamedImport', () => {
   expect(addNamedImport(`
@@ -12,4 +12,24 @@ test('addNamedImport', () => {
 
   // TODO: Prevent duplicated imports
   // TODO: Add import to the end of the imports section
+});
+
+
+test('addCodeToFunction', () => {
+  expect(addCodeToFunction(`
+    // Hey!
+    function someFunc() {
+      console.log("Hello world");
+    }
+  `, 'someFunc', `
+    const x = 5;
+    console.log('X=' + x);
+  `)).toEqual(`
+    // Hey!
+    function someFunc() {
+      const x = 5;
+      console.log('X=' + x);
+      console.log("Hello world");
+    }
+  `);
 });
