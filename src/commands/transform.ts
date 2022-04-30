@@ -1,12 +1,12 @@
 import { parse, print, types } from "recast";
 import { detectNewline } from "../utils";
 
-export const addNamedImport = (source: string, name: string, from: string): string => {
+export const addNamedImport = (source: string, names: string[], from: string): string => {
   const code = parse(source);
 
   const b = types.builders;
   const importDeclaration = b.importDeclaration(
-    [ { type: 'ImportSpecifier', imported: { type: 'Identifier', name: name } } ],
+    [ { type: 'ImportSpecifier', imported: { type: 'Identifier', name: names.join(', ') } } ],
     { type: 'StringLiteral', value: from }
   );
 

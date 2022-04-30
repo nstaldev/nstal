@@ -4,8 +4,8 @@ test('addNamedImport', () => {
   expect(addNamedImport(`
     import React from 'react';
     console.log("Hello world");
-  `, 'someFunc', 'somePackage')).toEqual(`
-    import { someFunc } from "somePackage";
+  `, [ 'someFunc', 'someOtherFunc' ], 'somePackage')).toEqual(`
+    import { someFunc, someOtherFunc } from "somePackage";
     import React from 'react';
     console.log("Hello world");
   `);

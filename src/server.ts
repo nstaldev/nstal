@@ -53,7 +53,10 @@ export const ServerDocument: OpenrpcDocument = {
             items: {
               type: "object",
               properties: {
-                name: { type: "string" },
+                names: {
+                  type: 'array',
+                  items: { type: "string" }
+                },
                 package: { type: "string" }
               }
             }
@@ -103,7 +106,7 @@ export class ServerSession {
           (await fs.readFile(path)).toString(), funcName, code
         );
         deps.forEach(dep => {
-          newCode = addNamedImport(newCode, dep.name, dep.package);
+          newCode = addNamedImport(newCode, dep.names, dep.package);
         });
         await fs.writeFile(path, newCode);
 
