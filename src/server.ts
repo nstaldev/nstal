@@ -11,6 +11,7 @@ import { envFileAddEntry } from "./commands/env-file";
 import { createFile } from "./commands/create-file";
 import { addCodeToFunction, addNamedImport } from "./commands/transform";
 import fs from 'fs/promises'
+import { shellRunCommand } from "./commands/shell-command";
 
 export const ServerDocument: OpenrpcDocument = {
   openrpc: "1.0.0",
@@ -19,6 +20,19 @@ export const ServerDocument: OpenrpcDocument = {
     version: "1.0.0"
   },
   methods: [
+    {
+      name: "shellRunCommand",
+      params: [
+        { name: "command", schema: { type: "string" } },
+        { name: "currentPath", schema: { type: "string" } }
+      ],
+      result: { name: "status", schema: {
+        type: "object",
+        properties: {
+          status: { type: "number" }
+        }
+      } }
+    },
     {
       name: "authenticate",
       params: [
@@ -89,6 +103,11 @@ export class ServerSession {
         this.authenticated = (this.sessionCode === sessionCode);
         console.log(`Authentication with ${sessionCode}: ${this.authenticated}`);
         return this.authenticated;
+      },
+      shellRunCommand: async (command: string, currentPath: string): Promise<any> => {
+        this.checkAuthentication();
+        const status = await shellRunCommand(command, currentPath);
+        return { status };
       },
       envFileAddVar: async (name: string, value: string): Promise<any> => {
         this.checkAuthentication();
