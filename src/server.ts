@@ -23,8 +23,7 @@ export const ServerDocument: OpenrpcDocument = {
     {
       name: "shellRunCommand",
       params: [
-        { name: "command", schema: { type: "string" } },
-        { name: "currentPath", schema: { type: "string" } }
+        { name: "command", schema: { type: "string" } }
       ],
       result: { name: "status", schema: {
         type: "object",
@@ -104,9 +103,9 @@ export class ServerSession {
         console.log(`Authentication with ${sessionCode}: ${this.authenticated}`);
         return this.authenticated;
       },
-      shellRunCommand: async (command: string, currentPath: string): Promise<any> => {
+      shellRunCommand: async (command: string): Promise<any> => {
         this.checkAuthentication();
-        const status = await shellRunCommand(command, currentPath);
+        const status = await shellRunCommand(command);
         return { status };
       },
       envFileAddVar: async (name: string, value: string): Promise<any> => {
