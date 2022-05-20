@@ -10,7 +10,7 @@ import { HandleFunction } from "connect";
 import { envFileAddEntry } from "./commands/env-file";
 import { addCodeToFunction, addNamedImport } from "./commands/transform";
 import fs, { writeFile } from 'fs/promises'
-import { shellRunCommand } from "./commands/shell-command";
+import { shellRunCommand, shellStartCommand } from "./commands/shell-command";
 import WorkingDir from "./WorkingDir";
 import { fileExists, readFile } from "./commands/file";
 
@@ -23,6 +23,18 @@ export const ServerDocument: OpenrpcDocument = {
   methods: [
     {
       name: "shellRunCommand",
+      params: [
+        { name: "command", schema: { type: "string" } }
+      ],
+      result: { name: "status", schema: {
+        type: "object",
+        properties: {
+          status: { type: "number" }
+        }
+      } }
+    },
+    {
+      name: "shellStartCommand",
       params: [
         { name: "command", schema: { type: "string" } }
       ],
@@ -122,6 +134,11 @@ export class ServerSession {
       shellRunCommand: async (command: string): Promise<any> => {
         this.checkAuthentication();
         const status = await shellRunCommand(command, this.workingDir);
+        return { status };
+      },
+      shellStartCommand: async (command: string): Promise<any> => {
+        this.checkAuthentication();
+        const status = await shellStartCommand(command, this.workingDir);
         return { status };
       },
       envFileAddVar: async (name: string, value: string): Promise<any> => {
