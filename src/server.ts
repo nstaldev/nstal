@@ -8,10 +8,11 @@ import { WebSocketTransport } from "@open-rpc/client-js";
 import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/transports/websocket";
 import { HandleFunction } from "connect";
 import { envFileAddEntry } from "./commands/env-file";
-import { createFile } from "./commands/create-file";
 import { addCodeToFunction, addNamedImport } from "./commands/transform";
-import fs from 'fs/promises'
+import fs, { writeFile } from 'fs/promises'
 import { shellRunCommand } from "./commands/shell-command";
+import WorkingDir from "./WorkingDir";
+import { fileExists, readFile } from "./commands/file";
 
 export const ServerDocument: OpenrpcDocument = {
   openrpc: "1.0.0",
@@ -48,7 +49,21 @@ export const ServerDocument: OpenrpcDocument = {
       result: { name: "change", schema: { type: "string" } }
     },
     {
-      name: "createFile",
+      name: "fileExists",
+      params: [
+        { name: "path", schema: { type: "string" } }
+      ],
+      result: { name: "result", schema: { type: "boolean" } }
+    },
+    {
+      name: "readFile",
+      params: [
+        { name: "path", schema: { type: "string" } }
+      ],
+      result: { name: "result", schema: { type: "string" } }
+    },
+    {
+      name: "writeFile",
       params: [
         { name: "path", schema: { type: "string" } },
         { name: "content", schema: { type: "string" } }
@@ -84,6 +99,7 @@ export const ServerDocument: OpenrpcDocument = {
 export class ServerSession {
   sessionCode: string;
   authenticated = false;
+  workingDir = new WorkingDir();
 
   constructor(sessionCode: string) {
     this.sessionCode = sessionCode;
@@ -105,7 +121,7 @@ export class ServerSession {
       },
       shellRunCommand: async (command: string): Promise<any> => {
         this.checkAuthentication();
-        const status = await shellRunCommand(command);
+        const status = await shellRunCommand(command, this.workingDir);
         return { status };
       },
       envFileAddVar: async (name: string, value: string): Promise<any> => {
@@ -113,11 +129,22 @@ export class ServerSession {
         const change = await envFileAddEntry(name, value);
         return change.status;
       },
-      createFile: async (path: string, content: string): Promise<any> => {
+
+      // Files
+      readFile: async (path: string): Promise<any> => {
         this.checkAuthentication();
-        const change = await createFile(path, content);
+        return await readFile(`${this.workingDir.currentDir}/${path}`);
+      },
+      writeFile: async (path: string, content: string): Promise<any> => {
+        this.checkAuthentication();
+        const change = await writeFile(`${this.workingDir.currentDir}/${path}`, content);
         return true;
       },
+      fileExists: async (path: string): Promise<any> => {
+        this.checkAuthentication();
+        return await fileExists(`${this.workingDir.currentDir}/${path}`);
+      },
+
       addCodeToFunction: async (path: string, funcName: string, code: string, deps: any): Promise<any> => {
         this.checkAuthentication();
         let newCode = addCodeToFunction(

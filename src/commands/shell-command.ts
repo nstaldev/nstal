@@ -1,24 +1,12 @@
 import { exec } from "child_process"
+import WorkingDir from "../WorkingDir";
 
-let currentPath = process.cwd();
-
-export const getCd = (command: string): string | null => {
-  const trimmedCommand = command.trim();
-
-  const cdPrefix = 'cd ';
-  if (trimmedCommand.startsWith(cdPrefix)) {
-    return trimmedCommand.substring(cdPrefix.length);
-  }
-
-  return null;
-}
-
-export const shellRunCommand = async (command: string): Promise<number> => (
+export const shellRunCommand = async (command: string, workingDir: WorkingDir): Promise<number> => (
   new Promise((resolve, reject) => {
-    console.log(`Run command "${command}" from directory ${currentPath}`);
+    console.log(`Run command "${command}" from directory ${workingDir.currentDir}`);
 
     exec(command, {
-      cwd: currentPath
+      cwd: workingDir.currentDir
     }, (err, stdout, stderr) => {
       console.log("Result", err);
 
@@ -32,11 +20,11 @@ export const shellRunCommand = async (command: string): Promise<number> => (
 
       console.log(`stdout:\n${stdout}`);
 
-      const path = getCd(command);
+      const path = WorkingDir.getCd(command);
       if (path) {
         // TODO: Handle absolute path
-        currentPath = `${currentPath}/${path}`;
-        console.log(`New working directory: ${currentPath}`);
+        workingDir.currentDir = `${workingDir.currentDir}/${path}`;
+        console.log(`New working directory: ${workingDir.currentDir}`);
       }
 
       resolve(0);
