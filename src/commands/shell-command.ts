@@ -1,5 +1,5 @@
 import { exec, spawn } from "child_process"
-import WorkingDir from "../WorkingDir";
+import WorkingDir from "../working-dir";
 
 export const shellRunCommand = async (command: string, workingDir: WorkingDir): Promise<number> => (
   new Promise((resolve, reject) => {

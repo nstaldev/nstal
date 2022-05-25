@@ -11,7 +11,7 @@ import { envFileAddEntry } from "./commands/env-file";
 import { addCodeToFunction, addNamedImport } from "./commands/transform";
 import fs, { writeFile } from 'fs/promises'
 import { shellRunCommand, shellStartCommand } from "./commands/shell-command";
-import WorkingDir from "./WorkingDir";
+import WorkingDir from "./working-dir";
 import { fileExists, readFile } from "./commands/file";
 
 export const ServerDocument: OpenrpcDocument = {

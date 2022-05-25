@@ -1,4 +1,4 @@
-import WorkingDir from './WorkingDir'
+import WorkingDir from './working-dir'
 
 test('getCd', () => {
   expect(WorkingDir.getCd('cd new-path')).toEqual('new-path');
