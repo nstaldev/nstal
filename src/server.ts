@@ -7,8 +7,6 @@ import { OpenrpcDocument } from "@open-rpc/meta-schema";
 import { WebSocketTransport } from "@open-rpc/client-js";
 import { WebSocketServerTransportOptions } from "@open-rpc/server-js/build/transports/websocket";
 import { HandleFunction } from "connect";
-import { envFileAddEntry } from "./commands/env-file";
-import { addCodeToFunction, addNamedImport } from "./commands/transform";
 import fs, { writeFile } from 'fs/promises'
 import { shellRunCommand, shellStartCommand } from "./commands/shell-command";
 import WorkingDir from "./working-dir";
@@ -53,14 +51,6 @@ export const ServerDocument: OpenrpcDocument = {
       result: { name: "authenticated", schema: { type: "boolean" } }
     },
     {
-      name: "envFileAddVar",
-      params: [
-        { name: "name", schema: { type: "string" } },
-        { name: "value", schema: { type: "string" } }
-      ],
-      result: { name: "change", schema: { type: "string" } }
-    },
-    {
       name: "fileExists",
       params: [
         { name: "path", schema: { type: "string" } }
@@ -81,31 +71,8 @@ export const ServerDocument: OpenrpcDocument = {
         { name: "content", schema: { type: "string" } }
       ],
       result: { name: "result", schema: { type: "boolean" } }
-    },
-    {
-      name: "addCodeToFunction",
-      params: [
-        { name: "path", schema: { type: "string" } },
-        { name: "funcName", schema: { type: "string" } },
-        { name: "code", schema: { type: "string" } },
-        { name: "dependencies", schema: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                names: {
-                  type: 'array',
-                  items: { type: "string" }
-                },
-                package: { type: "string" }
-              }
-            }
-          }
-        }
-      ],
-      result: { name: "result", schema: { type: "boolean" } }
-    },
-  ],
+    }
+  ]
 };
 
 export class ServerSession {
@@ -141,11 +108,6 @@ export class ServerSession {
         const status = await shellStartCommand(command, this.workingDir);
         return { status };
       },
-      envFileAddVar: async (name: string, value: string): Promise<any> => {
-        this.checkAuthentication();
-        const change = await envFileAddEntry(name, value);
-        return change.status;
-      },
 
       // Files
       readFile: async (path: string): Promise<any> => {
@@ -160,19 +122,6 @@ export class ServerSession {
       fileExists: async (path: string): Promise<any> => {
         this.checkAuthentication();
         return await fileExists(`${this.workingDir.currentDir}/${path}`);
-      },
-
-      addCodeToFunction: async (path: string, funcName: string, code: string, deps: any): Promise<any> => {
-        this.checkAuthentication();
-        let newCode = addCodeToFunction(
-          (await fs.readFile(path)).toString(), funcName, code
-        );
-        deps.forEach(dep => {
-          newCode = addNamedImport(newCode, dep.names, dep.package);
-        });
-        await fs.writeFile(path, newCode);
-
-        return true;
       }
     }
   }

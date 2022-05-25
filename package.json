@@ -1,6 +1,6 @@
 {
   "name": "nstal",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "bin": "build/index.js",
   "main": "build/index.js",
@@ -8,9 +8,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "rollup -c",
-    "nstal": "ts-node src/index.ts",
-    "server": "ts-node src/server.ts",
-    "client": "ts-node src/client.ts"
+    "nstal": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -44,7 +42,6 @@
     "@open-rpc/server-js": "^1.9.3",
     "commander": "^9.1.0",
     "connect": "^3.7.0",
-    "mkdirp": "^1.0.4",
-    "recast": "^0.21.1"
+    "mkdirp": "^1.0.4"
   }
 }
