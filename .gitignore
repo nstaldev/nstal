@@ -1,2 +1,5 @@
 /packages/cli/node_modules/
 /packages/cli/build/
+
+/packages/core/node_modules/
+/packages/core/build/

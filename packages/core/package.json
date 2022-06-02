@@ -1,0 +1,28 @@
+{
+  "name": "@nstal/core",
+  "version": "0.0.4",
+  "description": "",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "nstal"
+  ],
+  "author": "Philippe Bernard <philippe.bernard@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "rollup": "^2.75.5",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}
