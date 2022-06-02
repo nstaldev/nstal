@@ -13,7 +13,7 @@
     "nstal"
   ],
   "author": "Philippe Bernard <philippe.bernard@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",

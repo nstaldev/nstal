@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/nstaldev/nstal.git"
   },
-  "author": "Philippe Bernard",
-  "license": "ISC",
+  "author": "Philippe Bernard <philippe.bernard@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/nstaldev/nstal/issues"
   },
