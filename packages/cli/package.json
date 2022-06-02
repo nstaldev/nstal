@@ -1,0 +1,47 @@
+{
+  "name": "nstal",
+  "version": "0.0.3",
+  "description": "",
+  "bin": "build/index.js",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "rollup -c",
+    "nstal": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nstaldev/nstal.git"
+  },
+  "author": "Philippe Bernard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nstaldev/nstal/issues"
+  },
+  "homepage": "https://github.com/nstaldev/nstal#readme",
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "@types/connect": "^3.4.35",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.23",
+    "@types/ws": "^8.5.3",
+    "jest": "27.5.1",
+    "rollup": "^2.70.1",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-preserve-shebangs": "^0.2.0",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@open-rpc/client-js": "^1.7.1",
+    "@open-rpc/schema-utils-js": "^1.16.1",
+    "@open-rpc/server-js": "^1.9.3",
+    "commander": "^9.1.0",
+    "connect": "^3.7.0",
+    "mkdirp": "^1.0.4"
+  }
+}
