@@ -1,5 +1,5 @@
 {
-  "name": "@nstaldev/core",
+  "name": "@nstaldev/react-core",
   "version": "0.0.6",
   "description": "",
   "main": "build/cjs/index.js",
