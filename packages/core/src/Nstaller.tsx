@@ -102,11 +102,11 @@ export const useNstalConnector = (): NstalConnector => {
   }
 }
 
-export type NstalPlayerProps = {
+export type NstallerProps = {
   children: ReactFragment;
 }
 
-const NstalPlayer = (props: NstalPlayerProps) => {
+const Nstaller = (props: NstallerProps) => {
   const [ client, setClient ] = useState<Client | undefined>(undefined);
   const [ actionStates, setActionStates ] = useState<ActionStatus[]>([]);
 
@@ -128,4 +128,4 @@ const NstalPlayer = (props: NstalPlayerProps) => {
   )
 }
 
-export default NstalPlayer
+export default Nstaller
