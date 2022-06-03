@@ -1,6 +1,6 @@
 {
   "name": "@nstaldev/react-components",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "main": "build/index.cjs.js",
   "module": "build/index.esm.js",
@@ -26,7 +26,7 @@
     "rollup-plugin-typescript2": "^0.31.0"
   },
   "dependencies": {
-    "@nstaldev/react-core": "^0.0.9",
+    "@nstaldev/react-core": "^0.0.10",
     "@open-rpc/client-js": "^1.7.1",
     "@types/react-dom": "^18.0.5"
   },
