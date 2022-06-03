@@ -5,7 +5,11 @@ export {
   NstalComponents,
   ActionButtonProps,
   ConnectionStatus,
-  ConnectionInstructionsProps
+  ConnectionInstructionsProps,
+  ExecutionStatus,
+  RunCommandsInstructionsProps,
+  CreateFileInstructionsProps,
+  PrependToFileInstructionsProps
 } from './NstalComponents';
 
 export { Nstaller } from './Nstaller';
