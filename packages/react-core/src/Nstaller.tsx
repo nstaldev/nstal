@@ -1,10 +1,8 @@
 import Client from '@open-rpc/client-js'
 import { createContext, ReactFragment, useContext, useEffect, useState } from "react";
 import { IterableStatus, Iterator, useIterable } from './Iterator';
-
-export enum ActionStatus {
-  Later, NextToRun, Starting, Running, Completed, Error
-}
+import NstalComponents from './NstalComponents';
+import { ActionStatus } from './types';
 
 export type NstalConnector = {
   client: Client | undefined;
@@ -14,19 +12,22 @@ export type NstalConnector = {
 type NstalPlayerContext = {
   actionStates: ActionStatus[];
   setStatus: (status: ActionStatus, index: number) => void;
+  components?: NstalComponents;
 } & NstalConnector;
 
 const NstalPlayerContext = createContext<NstalPlayerContext>({
   client: undefined,
   setClient: (c: Client) => {},
   actionStates: [],
-  setStatus: (status: ActionStatus, index: number) => {}
+  setStatus: (status: ActionStatus, index: number) => {},
+  components: undefined
 });
 
 export type NstalAction = {
   client?: Client;
   status: ActionStatus;
   setStatus: (status: ActionStatus) => void;
+  components: NstalComponents;
 }
 
 export const useNstalAction = (): NstalAction => {
@@ -58,6 +59,11 @@ export const useNstalAction = (): NstalAction => {
     break;
   }
 
+  const components = nstalContext.components;
+  if (!components) {
+    throw new Error('No NstalComponents provided. Make sure to pass some to the Nstaller');
+  }
+
   return {
     client: nstalContext.client,
     status,
@@ -72,12 +78,14 @@ export const useNstalAction = (): NstalAction => {
           iterable.markAsRun();
         }
       }
-    }
+    },
+    components
   }
 }
 
 export type NstalMilestone = {
   reached: boolean;
+  components: NstalComponents;
 }
 
 export const useNstalMilestone = (): NstalMilestone => {
@@ -90,7 +98,8 @@ export const useNstalMilestone = (): NstalMilestone => {
   });
 
   return {
-    reached: !!action.client && action.status !== ActionStatus.Later
+    reached: !!action.client && action.status !== ActionStatus.Later,
+    components: action.components
   }
 }
 
@@ -103,10 +112,11 @@ export const useNstalConnector = (): NstalConnector => {
 }
 
 export type NstallerProps = {
+  components: NstalComponents;
   children: ReactFragment;
 }
 
-const Nstaller = (props: NstallerProps) => {
+export const Nstaller = (props: NstallerProps) => {
   const [ client, setClient ] = useState<Client | undefined>(undefined);
   const [ actionStates, setActionStates ] = useState<ActionStatus[]>([]);
 
@@ -119,7 +129,8 @@ const Nstaller = (props: NstallerProps) => {
         const newStatus = [...actionStates];
         newStatus[index] = status;
         setActionStates(newStatus);
-      }
+      },
+      components: props.components
     }}>
       <Iterator>
         {props.children}
@@ -127,5 +138,3 @@ const Nstaller = (props: NstallerProps) => {
     </NstalPlayerContext.Provider>
   )
 }
-
-export default Nstaller

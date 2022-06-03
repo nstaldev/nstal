@@ -1,7 +1,8 @@
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import typescript from "@rollup/plugin-typescript";
+import typescript from "rollup-plugin-typescript2";
+import resolve from "@rollup/plugin-node-resolve";
 
 import packageJson from "./package.json";
 
@@ -12,7 +13,8 @@ const config = [
       {
         file: packageJson.main,
         format: "cjs",
-        sourcemap: true
+        sourcemap: true,
+        name: "react-core"
       },
       {
         file: packageJson.module,
@@ -20,7 +22,15 @@ const config = [
         sourcemap: true
       },
     ],
-    plugins: [peerDepsExternal(), commonjs(), typescript(), json()]
+    plugins: [
+      peerDepsExternal(),
+      resolve({
+        browser: true
+      }),
+      commonjs(),
+      typescript({ useTsconfigDeclarationDir: true }),
+      json()
+    ]
   }
 ];
 

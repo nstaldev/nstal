@@ -2,11 +2,16 @@
   "name": "@nstaldev/react-core",
   "version": "0.0.7",
   "description": "",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
+  "main": "build/index.cjs.js",
+  "module": "build/index.esm.js",
+  "types": "build/esm/index.d.ts",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
+    "prebuild": "rm -rf build",
+    "build": "npm run prebuild && rollup -c",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -17,13 +22,18 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-typescript": "^8.3.2",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/react": "^18.0.10",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "rollup": "^2.75.5",
-    "rollup-plugin-peer-deps-external": "^2.2.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.31.0"
   },
   "dependencies": {
-    "@open-rpc/client-js": "^1.7.1",
+    "@open-rpc/client-js": "^1.7.1"
+  },
+  "peerDependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },

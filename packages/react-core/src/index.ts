@@ -1,4 +1,3 @@
 
-const dummy = () => {}
-
-export { dummy };
+export { NstalComponents } from './NstalComponents';
+export { Nstaller } from './Nstaller';
