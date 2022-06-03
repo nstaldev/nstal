@@ -5,3 +5,6 @@ lerna-debug.log
 
 /packages/react-core/node_modules/
 /packages/react-core/build/
+
+/packages/react-components/node_modules/
+/packages/react-components/build/
