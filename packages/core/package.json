@@ -1,5 +1,5 @@
 {
-  "name": "@nstal/core",
+  "name": "@nstaldev/core",
   "version": "0.0.6",
   "description": "",
   "main": "build/cjs/index.js",
@@ -18,11 +18,14 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
+    "@types/react": "^18.0.10",
     "rollup": "^2.75.5",
     "rollup-plugin-peer-deps-external": "^2.2.4"
   },
   "dependencies": {
+    "@open-rpc/client-js": "^1.7.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
-  }
+  },
+  "gitHead": "4c84e70e583ae4629da502cfdc93bc0ba3f5b4bf"
 }
