@@ -28,7 +28,7 @@ const config = [
         browser: true
       }),
       commonjs(),
-      typescript({ useTsconfigDeclarationDir: true }),
+      typescript(),
       json()
     ]
   }
