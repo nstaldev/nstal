@@ -43,5 +43,6 @@
     "commander": "^9.1.0",
     "connect": "^3.7.0",
     "mkdirp": "^1.0.4"
-  }
+  },
+  "gitHead": "4c84e70e583ae4629da502cfdc93bc0ba3f5b4bf"
 }
