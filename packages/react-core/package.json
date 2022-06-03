@@ -12,6 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf build",
     "build": "npm run prebuild && rollup -c",
+    "build:watch": "rollup -c -w",
     "prepare": "npm run build"
   },
   "keywords": [
