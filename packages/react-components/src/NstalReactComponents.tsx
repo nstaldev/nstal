@@ -1,11 +1,17 @@
 import { NstalComponents } from "@nstaldev/react-core";
+import ActionButton from "./ActionButton";
+import ActionWrapper from "./actions/Wrapper";
+import ConnectionInstructions from "./connection/ConnectionInstructions";
 
 export const NstalReactComponents: NstalComponents = {
   button: (props) => (
-    <button>{props.label}</button>
+    <ActionButton {...props} />
   ),
   wrapper: (props) => (
-    <div>{props.children}</div>
+    <ActionWrapper {...props}/>
+  ),
+  connection: (props) => (
+    <ConnectionInstructions {...props} />
   )
 }
 

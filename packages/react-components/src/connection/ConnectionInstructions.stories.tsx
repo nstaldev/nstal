@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ConnectionInstructions, { ConnectionInstructionsProps, ConnectionStatus } from './ConnectionInstructions';
+import ConnectionInstructions from './ConnectionInstructions';
+import { ConnectionStatus } from '@nstaldev/react-core';
 
 export default {
   title: 'Nstal/ConnectionStatus',
