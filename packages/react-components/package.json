@@ -17,14 +17,19 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-typescript": "^8.3.2",
     "@types/react": "^18.0.10",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "rollup": "^2.75.5",
-    "rollup-plugin-peer-deps-external": "^2.2.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.31.0"
   },
   "dependencies": {
     "@nstaldev/react-core": "^0.0.7",
     "@open-rpc/client-js": "^1.7.1",
+    "@types/react-dom": "^18.0.5"
+  },
+  "peerDependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },
