@@ -12,9 +12,21 @@ export type ActionWrapperProps = {
   automated: boolean;
 }
 
+export enum ConnectionStatus {
+  NotConnected,
+  Connected,
+  Error
+}
+
+export type ConnectionInstructionsProps = {
+  command: string;
+  status: ConnectionStatus;
+}
+
 export type NstalComponents = {
   button: (props: ActionButtonProps) => ReactNode;
   wrapper: (props: ActionWrapperProps) => ReactNode;
+  connection: (props: ConnectionInstructionsProps) => ReactNode;
 }
 
 export default NstalComponents
