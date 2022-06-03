@@ -1,10 +1,7 @@
 import { Button, ButtonProps, Icon, Spinner } from "@chakra-ui/react"
 import { ActionStatus } from "@nstaldev/react-core";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
-
-export type ActionButtonProps = {
-  status: ActionStatus;
-} & ButtonProps;
+import { ActionButtonProps } from "../build/ActionButton";
 
 const caption = (status: ActionStatus) => {
   switch(status) {
