@@ -3,7 +3,6 @@ import { ActionStatus } from "./types";
 
 export type ActionButtonProps = {
   status: ActionStatus;
-  label: string;
   onClick: () => void;
 }
 
