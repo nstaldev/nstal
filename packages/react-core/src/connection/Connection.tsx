@@ -1,4 +1,4 @@
-import Client, { RequestManager, WebSocketTransport } from '@open-rpc/client-js'
+import Client, { RequestManager } from '@open-rpc/client-js'
 import randomstring from 'randomstring'
 import { ReactNode, useEffect, useState } from 'react';
 import { ConnectionInstructionsProps, ConnectionStatus } from '../NstalComponents';
@@ -12,9 +12,11 @@ enum ConnectionError {
   WebSocketError, AuthenticationError
 }
 
-const openConnection = async (sessionCode: string): Promise<Client> => (
-  new Promise<Client>((resolve, reject) => {
-    const transport = new WebSocketTransport("ws://localhost:8790");
+const openConnection = async (sessionCode: string): Promise<Client> => {
+  const rpcClient = await import('@open-rpc/client-js');
+
+  return new Promise<Client>((resolve, reject) => {
+    const transport = new rpcClient.WebSocketTransport("ws://localhost:8790");
     transport.connection.onerror = () => {
       reject(ConnectionError.WebSocketError);
     }
@@ -31,8 +33,8 @@ const openConnection = async (sessionCode: string): Promise<Client> => (
         reject(ConnectionError.AuthenticationError);
       }
     });
-  })
-)
+  });
+}
 
 const tryToConnect = async (sessionCode: string): Promise<Client> => (
   new Promise<Client>(async (resolve, reject) => {
