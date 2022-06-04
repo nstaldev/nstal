@@ -1,6 +1,6 @@
 {
   "name": "@nstaldev/react-components",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "",
   "main": "build/index.cjs.js",
   "module": "build/index.esm.js",
@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.1.2",
-    "@nstaldev/react-core": "^0.0.14",
+    "@nstaldev/react-core": "^0.0.15",
     "@open-rpc/client-js": "^1.7.1",
     "@types/react-dom": "^18.0.5",
     "react-copy-to-clipboard": "^5.1.0",

@@ -1,6 +1,6 @@
 {
   "name": "@nstaldev/react-core",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "",
   "main": "build/index.cjs.js",
   "module": "build/index.esm.js",
