@@ -21,6 +21,7 @@
   "author": "Philippe Bernard <philippe.bernard@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@open-rpc/client-js": "^1.7.1",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
@@ -33,10 +34,10 @@
     "rollup-plugin-typescript2": "^0.31.0"
   },
   "dependencies": {
-    "@open-rpc/client-js": "^1.7.1",
     "randomstring": "^1.2.2"
   },
   "peerDependencies": {
+    "@open-rpc/client-js": "^1.7.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },
