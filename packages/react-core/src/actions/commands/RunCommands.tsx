@@ -9,7 +9,7 @@ export type RunCommandsProps = {
   nstalMethod: 'shellRunCommand' | 'shellStartCommand' | undefined;
 } & RunCommandsInstructionsProps;
 
-const RunCommands = (props: RunCommandsProps) => {
+export const RunCommands = (props: RunCommandsProps) => {
   const [ commandStatus, setCommandStatus ] = useState<ExecutionStatus[] | undefined>(undefined);
 
   return (

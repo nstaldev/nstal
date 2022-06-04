@@ -4,7 +4,7 @@ import { NstalAction } from "../../Nstaller";
 
 export type PrependToFileProps = PrependToFileInstructionsProps;
 
-const PrependToFile = (props: PrependToFileProps) => (
+export const PrependToFile = (props: PrependToFileProps) => (
   <BasicAction
     {...props}
     render={(nstalAction: NstalAction) => (nstalAction.components.prependToFile(props))}

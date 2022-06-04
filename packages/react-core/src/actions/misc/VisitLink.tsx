@@ -5,7 +5,7 @@ export type VisitLinkProps = {
   url: string
 };
 
-const VisitLink = (props: VisitLinkProps) => (
+export const VisitLink = (props: VisitLinkProps) => (
   <BasicAction
     {...props}
     render={(nstalAction: NstalAction) => (

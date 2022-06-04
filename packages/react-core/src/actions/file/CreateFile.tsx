@@ -4,7 +4,7 @@ import { NstalAction } from "../../Nstaller";
 
 export type CreateFileProps = CreateFileInstructionsProps;
 
-const CreateFile = (props: CreateFileProps) => (
+export const CreateFile = (props: CreateFileProps) => (
   <BasicAction
     {...props}
     render={(nstalAction: NstalAction) => nstalAction.components.createFile(props)}
