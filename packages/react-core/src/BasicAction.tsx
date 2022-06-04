@@ -25,22 +25,25 @@ export default function BasicAction<ActionProps>(props: BasicActionProps<ActionP
     })();
   }, [ nstalAction, props ]);
 
-  return nstalAction.components.wrapper({
-    status: nstalAction.status,
-    automated: !!nstalAction.client,
-    children: (
-      <>
-        {props.render(nstalAction)}
-        {nstalAction.client &&  (
-          nstalAction.status === ActionStatus.NextToRun ||
-          nstalAction.status === ActionStatus.Starting ||
-          nstalAction.status === ActionStatus.Running
-        ) && (nstalAction.components.button({
-          onClick: () => nstalAction.setStatus(ActionStatus.Starting),
-          status: nstalAction.status,
-          label: 'Run'
-        }))}
-      </>
-    )
-  });
+  return (
+    <>
+      {nstalAction.components.wrapper({
+        status: nstalAction.status,
+        automated: !!nstalAction.client,
+        children: (
+          <>
+            {props.render(nstalAction)}
+            {nstalAction.client &&  (
+              nstalAction.status === ActionStatus.NextToRun ||
+              nstalAction.status === ActionStatus.Starting ||
+              nstalAction.status === ActionStatus.Running
+            ) && (nstalAction.components.button({
+              onClick: () => nstalAction.setStatus(ActionStatus.Starting),
+              status: nstalAction.status
+            }))}
+          </>
+        )
+      })}
+    </>
+  );
 }
