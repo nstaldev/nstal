@@ -12,6 +12,8 @@ export {
   PrependToFileInstructionsProps
 } from './NstalComponents';
 
+export { Connector } from './connection/Connector';
+
 export { RunCommands } from './actions/commands/RunCommands';
 export { StartEverRunningCommand } from './actions/commands/StartEverRunningCommand';
 

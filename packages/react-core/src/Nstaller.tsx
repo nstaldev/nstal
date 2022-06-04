@@ -4,16 +4,13 @@ import { IterableStatus, Iterator, useIterable } from './Iterator';
 import NstalComponents from './NstalComponents';
 import { ActionStatus } from './types';
 
-export type NstalConnector = {
+type NstalPlayerContext = {
   client: Client | undefined;
   setClient: (c: Client) => void;
-}
-
-type NstalPlayerContext = {
   actionStates: ActionStatus[];
   setStatus: (status: ActionStatus, index: number) => void;
   components?: NstalComponents;
-} & NstalConnector;
+};
 
 const NstalPlayerContext = createContext<NstalPlayerContext>({
   client: undefined,
@@ -103,11 +100,24 @@ export const useNstalMilestone = (): NstalMilestone => {
   }
 }
 
+export type NstalConnector = {
+  client: Client | undefined;
+  setClient: (c: Client) => void;
+  components: NstalComponents;
+}
+
 export const useNstalConnector = (): NstalConnector => {
   const context = useContext(NstalPlayerContext);
+
+  const components = context.components;
+  if (!components) {
+    throw new Error('No NstalComponents provided. Make sure to pass some to the Nstaller');
+  }
+
   return {
     client: context.client,
-    setClient: context.setClient
+    setClient: context.setClient,
+    components
   }
 }
 
