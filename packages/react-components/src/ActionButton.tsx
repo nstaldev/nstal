@@ -17,7 +17,7 @@ const caption = (status: ActionStatus) => {
   }
 }
 
-const ActionButton = (props: ActionButtonProps) => (
+export const ActionButton = (props: ActionButtonProps) => (
   <Button
     mt={3}
     backgroundColor='blue.700'

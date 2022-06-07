@@ -9,3 +9,5 @@ export { PrependToFileInstructions } from './actions/file/PrependToFileInstructi
 export { ConnectionInstructions } from './connection/ConnectionInstructions'
 
 export { ActionWrapper } from './actions/Wrapper'
+
+export { ActionButton } from './ActionButton'
