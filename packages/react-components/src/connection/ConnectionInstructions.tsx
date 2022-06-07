@@ -16,7 +16,7 @@ const boxColor = (status: ConnectionStatus): string => {
   }
 }
 
-const ConnectionInstructions = (props: ConnectionInstructionsProps) => {
+export const ConnectionInstructions = (props: ConnectionInstructionsProps) => {
   const color = boxColor(props.status);
 
   const notConnected = (

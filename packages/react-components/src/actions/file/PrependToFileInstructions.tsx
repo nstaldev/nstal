@@ -1,7 +1,7 @@
 import { Box, Code } from "@chakra-ui/react"
 import { PrependToFileInstructionsProps } from "@nstaldev/react-core"
 
-const PrependToFileInstructions = (props: PrependToFileInstructionsProps) => (
+export const PrependToFileInstructions = (props: PrependToFileInstructionsProps) => (
   <>
     <Box as='p'>
       Add the following at the beginning of <Code>{props.path}</Code>:

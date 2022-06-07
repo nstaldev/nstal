@@ -1,7 +1,7 @@
 import { Box, Code } from "@chakra-ui/react"
 import { CreateFileInstructionsProps } from "@nstaldev/react-core"
 
-const CreateFileInstructions = (props: CreateFileInstructionsProps) => (
+export const CreateFileInstructions = (props: CreateFileInstructionsProps) => (
   <>
     <Box as='p'>
       Populate <Code>{props.path}</Code> with:

@@ -25,7 +25,7 @@ const SingleCommand = (props: { command: string, status?: ExecutionStatus }) => 
   </Flex>
 )
 
-const RunCommandsInstructions = (props: RunCommandsInstructionsProps) => (
+export const RunCommandsInstructions = (props: RunCommandsInstructionsProps) => (
   <div>
     <p>
       Run the command{props.commands.length > 1 && 's'}:
