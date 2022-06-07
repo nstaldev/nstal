@@ -5,7 +5,7 @@ export type MilestoneProps = {
   children: ReactNode;
 }
 
-const Milestone = (props: MilestoneProps) => {
+export const Milestone = (props: MilestoneProps) => {
   const milestone = useNstalMilestone();
   return milestone.reached ? props.children : null;
 }

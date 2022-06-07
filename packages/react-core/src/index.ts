@@ -22,4 +22,6 @@ export { PrependToFile } from './actions/file/PrependToFile';
 
 export { VisitLink } from './actions/misc/VisitLink';
 
+export { Milestone } from './Milestone';
+
 export { Nstaller } from './Nstaller';
