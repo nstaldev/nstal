@@ -27,8 +27,6 @@ export const ActionWrapper = (props: ActionWrapperProps) => {
     textColor: 'inherit'
   };
 
-  console.log(props.status);
-
   if (props.automated) {
     boxProps = {
       backgroundColor: color(props.status),
