@@ -18,7 +18,7 @@ const color = (status: ActionStatus) => {
   }
 }
 
-const ActionWrapper = (props: ActionWrapperProps) => {
+export const ActionWrapper = (props: ActionWrapperProps) => {
   let boxProps = {
     backgroundColor: 'inherit',
     p: 0,

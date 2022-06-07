@@ -7,3 +7,5 @@ export { CreateFileInstructions } from './actions/file/CreateFileInstructions'
 export { PrependToFileInstructions } from './actions/file/PrependToFileInstructions'
 
 export { ConnectionInstructions } from './connection/ConnectionInstructions'
+
+export { ActionWrapper } from './actions/Wrapper'
