@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import RunCommandsInstructions, { ExecutionStatus, RunCommandsInstructionsProps } from './RunCommandsInstructions';
+import RunCommandsInstructions, {  } from './RunCommandsInstructions';
+import { ExecutionStatus } from '@nstaldev/react-core';
 
 export default {
   title: 'Nstal/RunCommandsInstructions',
