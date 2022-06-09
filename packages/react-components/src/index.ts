@@ -11,3 +11,5 @@ export { ConnectionInstructions } from './connection/ConnectionInstructions'
 export { ActionWrapper } from './actions/Wrapper'
 
 export { ActionButton } from './ActionButton'
+
+export { CodeSnippet } from './misc/CodeSnippet'
