@@ -18,7 +18,11 @@ const StatusIcon = (props: { status?: ExecutionStatus }) => {
 
 const SingleCommand = (props: { command: string, status?: ExecutionStatus }) => (
   <Flex direction='row' alignItems='center'>
-    <Code display='block' background='inherit' flexGrow={1}>
+    <Code display='block' background='inherit' flexGrow={1} _before={{
+      content: '">"',
+      marginRight: '0.5rem',
+      color: 'gray.300'
+    }}>
       {props.command}
     </Code>
     {!!props.status && <StatusIcon status={props.status} />}
