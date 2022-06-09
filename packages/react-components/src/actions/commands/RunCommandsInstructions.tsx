@@ -27,9 +27,9 @@ const SingleCommand = (props: { command: string, status?: ExecutionStatus }) => 
 
 export const RunCommandsInstructions = (props: RunCommandsInstructionsProps) => (
   <div>
-    <p>
+    <Box as='p' mb={1}>
       Run the command{props.commands.length > 1 && 's'}:
-    </p>
+    </Box>
     <Box p={2} background='gray.100' borderWidth={1} borderRadius='md'>
       {props.commands.map((command, i) => (
         <SingleCommand
