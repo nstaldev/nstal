@@ -8,7 +8,7 @@ export type MilestoneProps = {
 export const Milestone = (props: MilestoneProps) => {
   const milestone = useNstalMilestone();
   return milestone.reached
-    ? <>props.children</>
+    ? <>{props.children}</>
     : null;
 }
 
