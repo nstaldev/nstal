@@ -2,7 +2,7 @@ import { Box, Code, propNames } from "@chakra-ui/react"
 import { ReactNode } from "react"
 
 export type CodeSnippetProps = {
-  code: string
+  children: ReactNode
 }
 
 export const CodeSnippet = (props: CodeSnippetProps) => (
@@ -15,7 +15,7 @@ export const CodeSnippet = (props: CodeSnippetProps) => (
     overflowX='auto'
   >
     <Code backgroundColor='inherit'>
-      {props.code}
+      {props.children}
     </Code>
   </Box>
 )

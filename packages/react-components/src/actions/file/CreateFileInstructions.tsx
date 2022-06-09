@@ -7,7 +7,9 @@ export const CreateFileInstructions = (props: CreateFileInstructionsProps) => (
     <Box as='p' mb={1}>
       Populate <Code>{props.path}</Code> with:
     </Box>
-    <CodeSnippet code={props.content} />
+    <CodeSnippet>
+      {props.content}
+    </CodeSnippet>
   </>
 )
 
