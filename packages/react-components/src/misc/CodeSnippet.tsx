@@ -2,7 +2,7 @@ import { Box, Code, propNames } from "@chakra-ui/react"
 import { ReactNode } from "react"
 
 export type CodeSnippetProps = {
-  children: ReactNode
+  children?: ReactNode
 }
 
 export const CodeSnippet = (props: CodeSnippetProps) => (
