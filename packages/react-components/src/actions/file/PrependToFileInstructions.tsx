@@ -7,7 +7,9 @@ export const PrependToFileInstructions = (props: PrependToFileInstructionsProps)
     <Box as='p' mb={1}>
       Add the following at the beginning of <Code>{props.path}</Code>:
     </Box>
-    <CodeSnippet code={props.content} />
+    <CodeSnippet>
+      {props.content}
+    </CodeSnippet>
   </>
 )
 
