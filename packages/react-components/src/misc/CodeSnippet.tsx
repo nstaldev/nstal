@@ -12,7 +12,7 @@ export const CodeSnippet = (props: CodeSnippetProps) => (
     borderWidth={1}
     borderRadius='md'
     as='pre'
-    overflowX='auto'
+    whiteSpace='pre-wrap'
   >
     <Code backgroundColor='inherit'>
       {props.children}
