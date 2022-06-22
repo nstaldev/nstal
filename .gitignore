@@ -3,6 +3,9 @@ lerna-debug.log
 /packages/cli/node_modules/
 /packages/cli/build/
 
+/packages/net/node_modules/
+/packages/net/build/
+
 /packages/react-core/node_modules/
 /packages/react-core/build/
 

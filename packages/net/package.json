@@ -1,0 +1,38 @@
+{
+  "name": "@nstaldev/net",
+  "version": "0.0.28",
+  "description": "",
+  "main": "build/index.cjs.js",
+  "module": "build/index.esm.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rm -rf build",
+    "build": "npm run prebuild && rollup -c",
+    "build:watch": "rollup -c -w",
+    "prepare": "npm run build",
+    "sandbox": "ts-node src/sandbox2.ts"
+  },
+  "keywords": [
+    "nstal"
+  ],
+  "author": "Philippe Bernard <philippe.bernard@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "nodemon": "^2.0.16",
+    "rollup": "^2.75.5",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.31.0",
+    "ts-node": "^10.8.1"
+  },
+  "dependencies": {
+    "rpc-websockets": "^7.5.0"
+  },
+  "gitHead": "1b6388da4343381d028392f2dcf106b3a7c79cca"
+}
