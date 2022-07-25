@@ -44,9 +44,12 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.1.2",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@nstaldev/react-core": "^0.0.28",
     "@open-rpc/client-js": "^1.7.1",
     "@types/react-dom": "^18.0.5",
+    "framer-motion": "^6.5.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-icons": "^4.4.0"
   },
