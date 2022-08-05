@@ -22,3 +22,5 @@ npm run storybook:react-components
 # or
 yarn storybook:react-components
 ```
+
+4. open http://localhost:6006/
