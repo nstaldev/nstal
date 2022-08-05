@@ -1,6 +1,5 @@
 # nstal
 
-
 ## Contributing
 
 1. install dependencis
@@ -12,13 +11,14 @@ yarn
 
 2. bootstrap lerna
 ```sh
-npx lerna bootstrap
+npm run lerna:bootstrap
 # or
-yarn lerna bootstrap
+yarn lerna:bootstrap
 ```
 
 3. run storybook
 ```sh
-npx lerna run storybook --scope=@nstaldev/react-components
+npm run storybook:react-components
+# or
+yarn storybook:react-components
 ```
-4. open http://localhost:6006
