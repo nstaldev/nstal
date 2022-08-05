@@ -8,3 +8,5 @@ lerna-debug.log
 
 /packages/react-components/node_modules/
 /packages/react-components/build/
+
+/node_modules/
