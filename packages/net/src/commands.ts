@@ -6,8 +6,8 @@ export enum Command {
 }
 
 export type CommandContext = {
-  complete: () => void;
-  output: (line: string) => void;
+  complete: () => Promise<void>;
+  output: (line: string) => Promise<void>;
 }
 
 export type LocalAgent = {

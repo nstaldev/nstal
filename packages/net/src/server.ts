@@ -1,8 +1,18 @@
 import { Server } from 'rpc-websockets'
-import { Command, LocalAgent } from './commands';
+import { Command, LocalAgent } from './commands'
+import NodeWebSocket from 'ws'
+
+export const listen = (options: NodeWebSocket.ServerOptions) => (
+  new Server({
+    port: 8080,
+    host: 'localhost'
+  })
+);
 
 export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => {
   let authenticated = false;
+
+  ws.event('output');
 
   ws.register('authenticate', (params) => {
     if (params[0] !== authToken) {
@@ -27,11 +37,11 @@ export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => 
         break;
       case(Command.InstallNpmPackage):
         await agent.installNpmPackage(params[1], params[2], {
-          complete() {
-            // TODO
+          complete: async () => {
+            await ws.emit('complete');
           },
-          output(line) {
-            // TODO
+          output: async (output: string) => {
+            await ws.emit('output', output);
           },
         });
         break;
@@ -39,7 +49,6 @@ export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => 
         throw new Error(`Unknown command ${params[0]}`);
     }
 
-    console.log("Expected to run", params);
     return true;
   });
 }

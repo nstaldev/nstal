@@ -1,12 +1,5 @@
 
-export enum ResponseType {
-  Completed = 'Completed',
-  Error = 'Error'
-};
+export { initClient } from './client'
+export { listen, initServer } from './server'
 
-export type Response = {
-  type: ResponseType.Error,
-  message: string;
-} | {
-  type: ResponseType.Completed
-}
+export type { CommandContext, LocalAgent } from './commands'

@@ -11,5 +11,13 @@ export const initClient = (ws: Client) => ({
   },
   createFile: async (path: string, content: string) => {
     await ws.call('runCommand', [ Command.CreateFile, path, content ]);
+  },
+  installNpmPackage: async (packageList: string[], devDep: boolean, onOutput?: (output: string) => void) => {
+    if (onOutput) {
+      await ws.subscribe('output');
+      ws.on('output', (output) => onOutput(output));
+    }
+    const p = ws.call('runCommand', [ Command.InstallNpmPackage, packageList, devDep ]);
+    return p;
   }
 });
