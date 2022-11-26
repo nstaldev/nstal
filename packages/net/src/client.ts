@@ -17,7 +17,9 @@ export const initClient = (ws: Client) => ({
       await ws.subscribe('output');
       ws.on('output', (output) => onOutput(output));
     }
-    const p = ws.call('runCommand', [ Command.InstallNpmPackage, packageList, devDep ]);
-    return p;
-  }
+    await ws.call('runCommand', [ Command.InstallNpmPackage, packageList, devDep ]);
+  },
+  readFile: async (path: string): Promise<string> => (
+    ws.call('runCommand', [ Command.ReadFile, path ]) as Promise<string>
+  )
 });

@@ -25,6 +25,8 @@ export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => 
       case(Command.CreateFile):
         await agent.createFile(params[1], params[2]);
         break;
+      case(Command.ReadFile):
+        return agent.readFile(params[1]);
       case(Command.ShellCd):
         await agent.shellCd(params[1]);
         break;
