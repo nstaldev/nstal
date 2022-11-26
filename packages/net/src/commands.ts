@@ -6,12 +6,14 @@ export enum Command {
 }
 
 export type CommandContext = {
-  complete: () => Promise<void>;
+  complete: (code: number) => Promise<void>;
   output: (line: string) => Promise<void>;
 }
 
 export type LocalAgent = {
   createFile: (path: string, content: string) => Promise<void>;
+  readFile: (path: string) => Promise<string>;
   shellCd: (path: string) => Promise<void>;
   installNpmPackage: (packageList: string[], devDep: boolean, context: CommandContext) => Promise<void>;
+  runCommand: (command: string, context: CommandContext) => Promise<void>;
 }

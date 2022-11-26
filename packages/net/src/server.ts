@@ -2,13 +2,6 @@ import { Server } from 'rpc-websockets'
 import { Command, LocalAgent } from './commands'
 import NodeWebSocket from 'ws'
 
-export const listen = (options: NodeWebSocket.ServerOptions) => (
-  new Server({
-    port: 8080,
-    host: 'localhost'
-  })
-);
-
 export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => {
   let authenticated = false;
 
