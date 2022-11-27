@@ -1,34 +1,25 @@
-import { exec, spawn } from "child_process"
+import { CommandContext } from "@nstaldev/net";
+import { spawn } from "child_process"
 import WorkingDir from "../working-dir";
 
-export const shellRunCommand = async (command: string, workingDir: WorkingDir): Promise<void> => (
+export const shellRunCommand = async (command: string, workingDir: WorkingDir, context: CommandContext): Promise<void> => (
   new Promise((resolve, reject) => {
     console.log(`Run command "${command}" from directory ${workingDir.currentDir}`);
 
-    exec(command, {
-      cwd: workingDir.currentDir
-    }, (err, stdout, stderr) => {
-      console.log("Result", err);
-
-      if (err) {
-        reject(err);
-      }
-
-      if (stderr) {
-        console.error(`stderr: ${stderr}`);
-      }
-
-      console.log(`stdout:\n${stdout}`);
-
-      const path = WorkingDir.getCd(command);
-      if (path) {
-        // TODO: Handle absolute path
-        workingDir.currentDir = `${workingDir.currentDir}/${path}`;
-        console.log(`New working directory: ${workingDir.currentDir}`);
-      }
-
-      resolve();
+    const process = spawn(command, [], {
+      cwd: workingDir.currentDir,
+      shell: true // Allow command to be a full command, eg. 'cmd --arg 1 --arg 2'
     });
+
+    process.on('exit', code => {
+      if (code !== 0) {
+        reject(`Command exited with status ${code}`);
+      } else {
+        resolve();
+      }
+    });
+
+    process.stdout.on('data', data => context.output(data.toString()));
   })
 )
 

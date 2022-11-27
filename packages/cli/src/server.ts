@@ -27,10 +27,10 @@ export async function start(sessionCode: string, port: number) {
       pwd.currentDir = path;
     },
     installNpmPackage: async (packageList: string[], devDep: boolean, context: CommandContext): Promise<void> => (
-      await installNodeJsPackage(packageList, pwd)
+      await installNodeJsPackage(packageList, pwd, context)
     ),
     runCommand: async (command: string, context: CommandContext): Promise<void> => (
-      shellRunCommand(command, pwd)
+      shellRunCommand(command, pwd, context)
     )
   });
 }
