@@ -34,6 +34,7 @@
     "rollup-plugin-typescript2": "^0.31.0"
   },
   "dependencies": {
+    "@nstaldev/net": "^0.0.28",
     "randomstring": "^1.2.2"
   },
   "peerDependencies": {

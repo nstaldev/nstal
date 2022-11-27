@@ -9,10 +9,7 @@ export const CreateFile = (props: CreateFileProps) => (
     {...props}
     render={(nstalAction: NstalAction) => nstalAction.components.createFile(props)}
     run={async (action: NstalAction, props: CreateFileProps) => {
-      const r = await action.client?.request({
-        method: "writeFile",
-        params: [ props.path, props.content ]
-      });
+      const r = await action.agent?.createFile(props.path, props.content);
     }}
   />
 )

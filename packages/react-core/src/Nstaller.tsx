@@ -1,27 +1,27 @@
-import Client from '@open-rpc/client-js'
+import { LocalAgent } from '@nstaldev/net';
 import { createContext, ReactFragment, useContext, useEffect, useState } from "react";
 import { IterableStatus, Iterator, useIterable } from './Iterator';
 import NstalComponents from './NstalComponents';
 import { ActionStatus } from './types';
 
 type NstalPlayerContext = {
-  client: Client | undefined;
-  setClient: (c: Client) => void;
+  agent: LocalAgent | undefined;
+  setAgent: (a: LocalAgent) => void;
   actionStates: ActionStatus[];
   setStatus: (status: ActionStatus, index: number) => void;
   components?: NstalComponents;
 };
 
 const NstalPlayerContext = createContext<NstalPlayerContext>({
-  client: undefined,
-  setClient: (c: Client) => {},
+  agent: undefined,
+  setAgent: (a: LocalAgent) => {},
   actionStates: [],
   setStatus: (status: ActionStatus, index: number) => {},
   components: undefined
 });
 
 export type NstalAction = {
-  client?: Client;
+  agent?: LocalAgent;
   status: ActionStatus;
   setStatus: (status: ActionStatus) => void;
   components: NstalComponents;
@@ -62,7 +62,7 @@ export const useNstalAction = (): NstalAction => {
   }
 
   return {
-    client: nstalContext.client,
+    agent: nstalContext.agent,
     status,
     setStatus: (status: ActionStatus) => {
       if (iterable.status === IterableStatus.Next && iterable.index !== undefined) {
@@ -89,20 +89,20 @@ export const useNstalMilestone = (): NstalMilestone => {
   const action = useNstalAction();
 
   useEffect(() => {
-    if (action.client && action.status === ActionStatus.NextToRun) {
+    if (action.agent && action.status === ActionStatus.NextToRun) {
       action.setStatus(ActionStatus.Completed);
     }
   });
 
   return {
-    reached: !!action.client && action.status !== ActionStatus.Later,
+    reached: !!action.agent && action.status !== ActionStatus.Later,
     components: action.components
   }
 }
 
 export type NstalConnector = {
-  client: Client | undefined;
-  setClient: (c: Client) => void;
+  agent: LocalAgent | undefined;
+  setAgent: (a: LocalAgent) => void;
   components: NstalComponents;
 }
 
@@ -115,8 +115,8 @@ export const useNstalConnector = (): NstalConnector => {
   }
 
   return {
-    client: context.client,
-    setClient: context.setClient,
+    agent: context.agent,
+    setAgent: context.setAgent,
     components
   }
 }
@@ -127,13 +127,13 @@ export type NstallerProps = {
 }
 
 export const Nstaller = (props: NstallerProps) => {
-  const [ client, setClient ] = useState<Client | undefined>(undefined);
+  const [ agent, setAgent ] = useState<LocalAgent | undefined>(undefined);
   const [ actionStates, setActionStates ] = useState<ActionStatus[]>([]);
 
   return (
     <NstalPlayerContext.Provider value={{
-      client,
-      setClient: (c: Client) => setClient(c),
+      agent,
+      setAgent: (a: LocalAgent) => setAgent(a),
       actionStates,
       setStatus: (status: ActionStatus, index: number) => {
         const newStatus = [...actionStates];

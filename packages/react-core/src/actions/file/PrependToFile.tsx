@@ -9,15 +9,8 @@ export const PrependToFile = (props: PrependToFileProps) => (
     {...props}
     render={(nstalAction: NstalAction) => (nstalAction.components.prependToFile(props))}
     run={async (action: NstalAction, props: PrependToFileProps) => {
-      const oldContent = await action.client?.request({
-        method: "readFile",
-        params: [ props.path ]
-      });
-
-      await action.client?.request({
-        method: "writeFile",
-        params: [ props.path, `${props.content}\n\n${oldContent}` ]
-      });
+      const oldContent = await action.agent?.readFile(props.path);
+      await action.agent?.createFile(props.path, `${props.content}\n\n${oldContent}`);
     }}
   />
 )
