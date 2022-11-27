@@ -5,6 +5,7 @@ import WorkingDir from "./working-dir";
 import { fileExists, readFile } from "./commands/file";
 import { CommandContext, initServer } from '@nstaldev/net'
 import { Server } from "rpc-websockets";
+import { installNodeJsPackage } from "./commands/nodejs/install-package";
 
 
 export async function start(sessionCode: string, port: number) {
@@ -25,11 +26,11 @@ export async function start(sessionCode: string, port: number) {
     shellCd: async (path: string): Promise<void> => {
       pwd.currentDir = path;
     },
-    installNpmPackage: async (packageList: string[], devDep: boolean, context: CommandContext): Promise<void> => {
-      console.log("TODO: Install " + packageList);
-    },
-    runCommand: async (command: string, context: CommandContext) => {
-      console.log("TODO: Run " + command);
-    }
+    installNpmPackage: async (packageList: string[], devDep: boolean, context: CommandContext): Promise<void> => (
+      await installNodeJsPackage(packageList, pwd)
+    ),
+    runCommand: async (command: string, context: CommandContext): Promise<void> => (
+      shellRunCommand(command, pwd)
+    )
   });
 }
