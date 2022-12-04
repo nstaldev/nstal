@@ -5,7 +5,7 @@ export const Connector = () => {
   const connectorContext = useNstalConnector();
   return (
     <Connection
-      onConnect={connectorContext.setClient}
+      onConnect={connectorContext.setAgent}
       render={connectorContext.components?.connection}
     />
   );
