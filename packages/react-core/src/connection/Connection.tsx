@@ -1,43 +1,33 @@
-import Client, { RequestManager } from '@open-rpc/client-js'
+import { initClient, LocalAgent } from '@nstaldev/net';
 import randomstring from 'randomstring'
 import { ReactNode, useEffect, useState } from 'react';
 import { ConnectionInstructionsProps, ConnectionStatus } from '../NstalComponents';
+import { Client } from 'rpc-websockets'
 
 export type ConnectionProps = {
   render: (props: ConnectionInstructionsProps) => ReactNode;
-  onConnect: (client: Client) => void;
+  onConnect: (agent: LocalAgent) => void;
 }
 
 enum ConnectionError {
   WebSocketError, AuthenticationError
 }
 
-const openConnection = async (sessionCode: string): Promise<Client> => {
-  const rpcClient = await import('@open-rpc/client-js');
+const openConnection = async (sessionCode: string): Promise<LocalAgent> => {
+  return new Promise<LocalAgent>((resolve, reject) => {
+    var ws = new Client('ws://localhost:8790');
+    const client = initClient(ws);
 
-  return new Promise<Client>((resolve, reject) => {
-    const transport = new rpcClient.WebSocketTransport("ws://localhost:8790");
-    transport.connection.onerror = () => {
-      reject(ConnectionError.WebSocketError);
+    try {
+      client.authenticate(sessionCode);
+    } catch(e) {
+      reject(ConnectionError.AuthenticationError);
     }
-
-    const client = new Client(new RequestManager([transport]));
-
-    client.request({
-      method: "authenticate",
-      params: [ sessionCode ]
-    }).then(r => {
-      if (r) {
-        resolve(client);
-      } else {
-        reject(ConnectionError.AuthenticationError);
-      }
-    });
   });
 }
 
-const tryToConnect = async (sessionCode: string): Promise<Client> => (
-  new Promise<Client>(async (resolve, reject) => {
+const tryToConnect = async (sessionCode: string): Promise<LocalAgent> => (
+  new Promise<LocalAgent>(async (resolve, reject) => {
     let keepTrying = true;
 
     while(keepTrying) {
@@ -79,8 +69,8 @@ export const Connection = (props: ConnectionProps) => {
 
     (async () => {
       try {
-        const client = await tryToConnect(sessionCode);
-        props.onConnect(client);
+        const agent = await tryToConnect(sessionCode);
+        props.onConnect(agent);
         setConnected(ConnectionStatus.Connected);
       }
       catch(e) {

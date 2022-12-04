@@ -25,10 +25,10 @@ export const RunCommands = (props: RunCommandsProps) => {
           setCommandStatus(newStatus);
 
           const command = props.commands[i];
-          const response = await action.client?.request({
-            method: props.nstalMethod || DEFAULT_METHOD,
-            params: [ command ]
-          }, 120000);
+          const response = await action.agent?.runCommand(command, {
+            output: async (o) => {},
+            complete: async() => {}
+          });
 
           newStatus[i] = ExecutionStatus.Completed;
           setCommandStatus(newStatus);
