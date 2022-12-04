@@ -45,7 +45,6 @@
   "dependencies": {
     "@chakra-ui/react": "^2.1.2",
     "@nstaldev/react-core": "^0.0.28",
-    "@open-rpc/client-js": "^1.7.1",
     "@types/react-dom": "^18.0.5",
     "react-copy-to-clipboard": "^5.1.0",
     "react-icons": "^4.4.0"
