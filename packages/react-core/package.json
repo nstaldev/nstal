@@ -28,15 +28,17 @@
     "@types/react": "^18.0.10",
     "rollup": "^2.75.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.31.0"
+    "rollup-plugin-typescript2": "^0.31.0",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@nstaldev/net": "^0.0.28",
-    "randomstring": "^1.2.2"
+    "randomstring": "^1.2.2",
+    "rpc-websockets": "^7.5.0"
   },
   "peerDependencies": {
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "gitHead": "1b6388da4343381d028392f2dcf106b3a7c79cca"
 }
