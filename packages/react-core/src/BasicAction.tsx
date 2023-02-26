@@ -11,7 +11,7 @@ export default function BasicAction<ActionProps>(props: BasicActionProps<ActionP
   const nstalAction = useNstalAction();
 
   useEffect(() => {
-    const client = nstalAction.client;
+    const client = nstalAction.agent;
 
     if (nstalAction.status !== ActionStatus.Starting || !client) {
       return;
@@ -29,11 +29,11 @@ export default function BasicAction<ActionProps>(props: BasicActionProps<ActionP
     <>
       {nstalAction.components.wrapper({
         status: nstalAction.status,
-        automated: !!nstalAction.client,
+        automated: !!nstalAction.agent,
         children: (
           <>
             {props.render(nstalAction)}
-            {nstalAction.client &&  (
+            {nstalAction.agent &&  (
               nstalAction.status === ActionStatus.NextToRun ||
               nstalAction.status === ActionStatus.Starting ||
               nstalAction.status === ActionStatus.Running
