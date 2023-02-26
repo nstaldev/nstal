@@ -3,5 +3,12 @@
   "private": true,
   "devDependencies": {
     "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "typescript": "4.7.4"
+  },
+  "scripts": {
+    "lerna:bootstrap": "lerna bootstrap",
+    "storybook:react-components": "lerna run storybook --scope=@nstaldev/react-components"
   }
 }
