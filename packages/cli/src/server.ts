@@ -3,10 +3,9 @@ import fs, { writeFile } from 'fs/promises'
 import { shellRunCommand, shellStartCommand } from "./commands/shell-command";
 import WorkingDir from "./working-dir";
 import { fileExists, readFile } from "./commands/file";
-import { CommandContext, initServer } from '@nstaldev/net'
+import { CommandContext, initServer } from "@nstaldev/net";
 import { Server } from "rpc-websockets";
 import { installNodeJsPackage } from "./commands/nodejs/install-package";
-
 
 export async function start(sessionCode: string, port: number) {
   const server = new Server({
