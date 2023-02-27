@@ -1,5 +1,5 @@
 import { initClient, LocalAgent } from '@nstaldev/net';
-import randomstring from 'randomstring'
+import randomString from 'random-string'
 import { ReactNode, useEffect, useState } from 'react';
 import { ConnectionInstructionsProps, ConnectionStatus } from '../NstalComponents';
 import { Client } from 'rpc-websockets'
@@ -57,7 +57,7 @@ export const Connection = (props: ConnectionProps) => {
 
   useEffect(() => {
     if (!sessionCode) {
-      setSessionCode(randomstring.generate(10));
+      setSessionCode(randomString({ length: 10 }));
     }
   }, [ sessionCode ]);
 
