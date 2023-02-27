@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Nstaller } from '@nstaldev/react-core';
+import { NstalReactComponents } from '@nstaldev/react-components';
+import { Connector } from '@nstaldev/react-core';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nstaller components={NstalReactComponents}>
+        Hello!
+        <Connector />
+      </Nstaller>
     </div>
   );
 }
