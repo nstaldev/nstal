@@ -3,7 +3,8 @@ export enum Command {
   CreateFile = 'CreateFile',
   InstallNpmPackage = 'InstallNpmPackage',
   ShellCd = 'ShellCd',
-  ReadFile = 'ReadFile'
+  ReadFile = 'ReadFile',
+  ShellCommand = 'ShellCommand'
 }
 
 export type CommandContext = {
