@@ -1,4 +1,4 @@
-import { initClient, LocalAgent } from '@nstaldev/net';
+import { connectToLocalAgent, initClient, LocalAgent } from '@nstaldev/net';
 import randomString from 'random-string'
 import { ReactNode, useEffect, useState } from 'react';
 import { ConnectionInstructionsProps, ConnectionStatus } from '../NstalComponents';
@@ -12,43 +12,6 @@ export type ConnectionProps = {
 enum ConnectionError {
   WebSocketError, AuthenticationError
 }
-
-const openConnection = async (sessionCode: string): Promise<LocalAgent> => {
-  return new Promise<LocalAgent>((resolve, reject) => {
-    var ws = new Client('ws://localhost:8790');
-    const client = initClient(ws);
-
-    try {
-      client.authenticate(sessionCode);
-    } catch(e) {
-      reject(ConnectionError.AuthenticationError);
-    }
-  });
-}
-
-const tryToConnect = async (sessionCode: string): Promise<LocalAgent> => (
-  new Promise<LocalAgent>(async (resolve, reject) => {
-    let keepTrying = true;
-
-    while(keepTrying) {
-      try {
-        const connection = await openConnection(sessionCode);
-        keepTrying = false;
-        resolve(connection);
-      }
-      catch(e) {
-        if (e === ConnectionError.AuthenticationError) {
-          keepTrying = false;
-          reject();
-        }
-
-        // Nothing to do, just retry
-      }
-
-      await new Promise(r => setTimeout(r, 1000));
-    }
-  })
-);
 
 export const Connection = (props: ConnectionProps) => {
   const [ connecting, setConnecting ] = useState<boolean>(false);
@@ -69,11 +32,10 @@ export const Connection = (props: ConnectionProps) => {
 
     (async () => {
       try {
-        const agent = await tryToConnect(sessionCode);
+        const agent = await connectToLocalAgent(sessionCode);
         props.onConnect(agent);
         setConnected(ConnectionStatus.Connected);
-      }
-      catch(e) {
+      } catch(e) {
         // Auth error
         setConnected(ConnectionStatus.Error);
       }
