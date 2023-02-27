@@ -4,6 +4,7 @@ export { ActionStatus } from "./types";
 export {
   NstalComponents,
   ActionButtonProps,
+  ActionWrapperProps,
   ConnectionStatus,
   ConnectionInstructionsProps,
   ExecutionStatus,
