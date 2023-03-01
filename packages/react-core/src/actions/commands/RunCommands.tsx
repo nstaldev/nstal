@@ -15,7 +15,9 @@ export const RunCommands = (props: RunCommandsProps) => {
   return (
     <BasicAction
       {...props}
-      render={(nstalAction) => nstalAction.components.runCommands(props)}
+      render={(nstalAction) => nstalAction.components.runCommands({
+        ...props, status: commandStatus
+      })}
       run={async (action: NstalAction, props: RunCommandsProps) => {
         const newStatus = new Array(props.commands.length).fill(ExecutionStatus.NotStarted);
         setCommandStatus(newStatus);
