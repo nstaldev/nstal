@@ -20,7 +20,7 @@ export const RunCommands = (props: RunCommandsProps) => {
   return (
     <BasicAction
       {...props}
-      render={(nstalAction) => nstalAction.components.runCommands({
+      render={(nstalAction, props) => nstalAction.components.runCommands({
         ...props, status: commandStatus, output: commandOutput
       })}
       run={async (action: NstalAction, props: RunCommandsProps) => {

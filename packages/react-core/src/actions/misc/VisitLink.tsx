@@ -8,7 +8,7 @@ export type VisitLinkProps = {
 export const VisitLink = (props: VisitLinkProps) => (
   <BasicAction
     {...props}
-    render={(nstalAction: NstalAction) => (
+    render={(nstalAction: NstalAction, props: VisitLinkProps) => (
       <p>Open <a href={props.url} target='_blank' rel="noreferrer">{props.url}</a> in another tab</p>
     )}
     run={async (action: NstalAction, props: VisitLinkProps) => {

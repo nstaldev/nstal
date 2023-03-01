@@ -4,7 +4,7 @@ import { ActionStatus } from "./types";
 
 export type BasicActionProps<ActionProps> = {
   run: (action: NstalAction, props: ActionProps) => Promise<void>;
-  render: (action: NstalAction) => ReactNode;
+  render: (action: NstalAction, props: ActionProps) => ReactNode;
 }
 
 export const BasicAction = <ActionProps,>(props: BasicActionProps<ActionProps> & ActionProps) => {
@@ -32,7 +32,7 @@ export const BasicAction = <ActionProps,>(props: BasicActionProps<ActionProps> &
         automated: !!nstalAction.agent,
         children: (
           <>
-            {props.render(nstalAction)}
+            {props.render(nstalAction, props)}
             {nstalAction.agent &&  (
               nstalAction.status === ActionStatus.NextToRun ||
               nstalAction.status === ActionStatus.Starting ||
