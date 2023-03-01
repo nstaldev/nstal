@@ -10,7 +10,12 @@ export type RunCommandsProps = {
 } & RunCommandsInstructionsProps;
 
 export const RunCommands = (props: RunCommandsProps) => {
-  const [ commandStatus, setCommandStatus ] = useState<ExecutionStatus[] | undefined>(undefined);
+  const [ commandStatus, setCommandStatus ] = useState<ExecutionStatus[]>(
+    new Array(props.commands.length).fill(ExecutionStatus.NotStarted)
+  );
+  const [ commandOutput, setCommandOutput ] = useState<string[]>(
+    new Array(props.commands.length).fill('')
+  );
 
   return (
     <BasicAction
@@ -20,6 +25,7 @@ export const RunCommands = (props: RunCommandsProps) => {
       })}
       run={async (action: NstalAction, props: RunCommandsProps) => {
         const newStatus = new Array(props.commands.length).fill(ExecutionStatus.NotStarted);
+        const newOutput = new Array(props.commands.length).fill('');
         setCommandStatus(newStatus);
 
         for (let i = 0; i < props.commands.length; i++) {
@@ -28,7 +34,10 @@ export const RunCommands = (props: RunCommandsProps) => {
 
           const command = props.commands[i];
           const response = await action.agent?.runCommand(command, {
-            output: async (o) => {},
+            output: async (o) => {
+              newOutput[i] += o;
+              setCommandOutput(newOutput);
+            },
             complete: async() => {}
           });
 

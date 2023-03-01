@@ -29,7 +29,8 @@ export enum ExecutionStatus {
 
 export type RunCommandsInstructionsProps = {
   commands: string[];
-  status?: ExecutionStatus[];
+  status: ExecutionStatus[];
+  output: string[];
 }
 
 export type CreateFileInstructionsProps = {
