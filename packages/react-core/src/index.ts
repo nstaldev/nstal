@@ -27,4 +27,4 @@ export { Milestone } from './Milestone';
 
 export { Nstaller } from './Nstaller';
 
-import * as BasicAction from './BasicAction';
+export { BasicAction } from './BasicAction';

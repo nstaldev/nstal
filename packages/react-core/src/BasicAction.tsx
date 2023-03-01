@@ -7,7 +7,7 @@ export type BasicActionProps<ActionProps> = {
   render: (action: NstalAction) => ReactNode;
 }
 
-export default function BasicAction<ActionProps>(props: BasicActionProps<ActionProps> & ActionProps) {
+export const BasicAction = <ActionProps,>(props: BasicActionProps<ActionProps> & ActionProps) => {
   const nstalAction = useNstalAction();
 
   useEffect(() => {
@@ -47,3 +47,5 @@ export default function BasicAction<ActionProps>(props: BasicActionProps<ActionP
     </>
   );
 }
+
+export default BasicAction;
