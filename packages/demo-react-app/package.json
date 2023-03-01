@@ -1,12 +1,12 @@
 {
   "name": "demo-react-app",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
     "@nstaldev/net": "^0.1.1",
-    "@nstaldev/react-components": "^0.1.6",
-    "@nstaldev/react-core": "^0.1.6",
+    "@nstaldev/react-components": "^0.1.7",
+    "@nstaldev/react-core": "^0.1.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
