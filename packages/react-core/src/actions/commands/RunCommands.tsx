@@ -20,9 +20,13 @@ export const RunCommands = (props: RunCommandsProps) => {
   return (
     <BasicAction
       {...props}
+      status={commandStatus}
+      output={commandOutput}
+
       render={(nstalAction, props) => nstalAction.components.runCommands({
-        ...props, status: commandStatus, output: commandOutput
+        ...props
       })}
+
       run={async (action: NstalAction, props: RunCommandsProps) => {
         const newStatus = new Array(props.commands.length).fill(ExecutionStatus.NotStarted);
         const newOutput = new Array(props.commands.length).fill('');
@@ -30,13 +34,13 @@ export const RunCommands = (props: RunCommandsProps) => {
 
         for (let i = 0; i < props.commands.length; i++) {
           newStatus[i] = ExecutionStatus.Running;
-          setCommandStatus(newStatus);
+          setCommandStatus(newStatus.slice());
 
           const command = props.commands[i];
           const response = await action.agent?.runCommand(command, {
             output: async (o) => {
               newOutput[i] += o;
-              setCommandOutput(newOutput);
+              setCommandOutput(newOutput.slice());
             },
             complete: async() => {}
           });
