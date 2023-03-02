@@ -2,6 +2,7 @@ import { ReactFragment, useEffect, useState } from "react";
 import BasicAction from "../../BasicAction";
 import { ExecutionStatus, RunCommandsInstructionsProps } from "../../NstalComponents";
 import { NstalAction } from "../../Nstaller";
+import { getCdDirectory } from "../utils";
 
 const DEFAULT_METHOD = 'shellRunCommand';
 
@@ -36,14 +37,18 @@ export const RunCommands = (props: RunCommandsProps) => {
           newStatus[i] = ExecutionStatus.Running;
           setCommandStatus(newStatus.slice());
 
-          const command = props.commands[i];
-          const response = await action.agent?.runCommand(command, {
-            output: async (o) => {
-              newOutput[i] += o;
-              setCommandOutput(newOutput.slice());
-            },
-            complete: async() => {}
-          });
+          const cdDir = getCdDirectory(props.commands[i]);
+          if (cdDir) {
+            const response = await action.agent?.shellCd(cdDir);
+          } else {
+            const response = await action.agent?.runCommand(props.commands[i], {
+              output: async (o) => {
+                newOutput[i] += o;
+                setCommandOutput(newOutput.slice());
+              },
+              complete: async() => {}
+            });
+          }
 
           newStatus[i] = ExecutionStatus.Completed;
           setCommandStatus(newStatus);
