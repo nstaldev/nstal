@@ -31,7 +31,7 @@ export const initClient = (ws: Client) => ({
     await ws.subscribe('output');
     ws.on('output', (output) => context.output(output));
 
-    await ws.call('startCommand', [ Command.ShellStartCommand, command ]);
+    await ws.call('runCommand', [ Command.ShellStartCommand, command ]);
   }
 });
 
