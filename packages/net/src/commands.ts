@@ -4,7 +4,8 @@ export enum Command {
   InstallNpmPackage = 'InstallNpmPackage',
   ShellCd = 'ShellCd',
   ReadFile = 'ReadFile',
-  ShellCommand = 'ShellCommand'
+  ShellCommand = 'ShellCommand',
+  ShellStartCommand = 'ShellStartCommand'
 }
 
 export type CommandContext = {
@@ -18,4 +19,5 @@ export type LocalAgent = {
   shellCd: (path: string) => Promise<void>;
   installNpmPackage: (packageList: string[], devDep: boolean, context: CommandContext) => Promise<void>;
   runCommand: (command: string, context: CommandContext) => Promise<void>;
+  startCommand: (command: string, context: CommandContext) => Promise<void>;
 }

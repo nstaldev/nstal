@@ -30,6 +30,9 @@ export async function start(sessionCode: string, port: number) {
     ),
     runCommand: async (command: string, context: CommandContext): Promise<void> => (
       shellRunCommand(command, pwd, context)
+    ),
+    startCommand: async (command: string, context: CommandContext): Promise<void> => (
+      shellStartCommand(command, pwd, context)
     )
   });
 }

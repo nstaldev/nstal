@@ -50,6 +50,16 @@ export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => 
           }
         });
         break;
+      case(Command.ShellStartCommand):
+        await agent.startCommand(params[1], {
+          complete: async () => {
+            await ws.emit('complete');
+          },
+          output: async (output: string) => {
+            await ws.emit('output', output);
+          }
+        });
+        break;
 
       default:
         throw new Error(`Unknown command ${params[0]}`);

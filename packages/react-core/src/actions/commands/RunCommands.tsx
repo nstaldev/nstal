@@ -29,6 +29,10 @@ export const RunCommands = (props: RunCommandsProps) => {
       })}
 
       run={async (action: NstalAction, props: RunCommandsProps) => {
+        if (!action.agent) {
+          return;
+        }
+
         const newStatus = new Array(props.commands.length).fill(ExecutionStatus.NotStarted);
         const newOutput = new Array(props.commands.length).fill('');
         setCommandStatus(newStatus);
@@ -41,7 +45,10 @@ export const RunCommands = (props: RunCommandsProps) => {
           if (cdDir) {
             const response = await action.agent?.shellCd(cdDir);
           } else {
-            const response = await action.agent?.runCommand(props.commands[i], {
+            const processCommand = props.nstalMethod === 'shellRunCommand'
+              ? action.agent?.runCommand
+              : action.agent?.startCommand;
+            const response = await processCommand(props.commands[i], {
               output: async (o) => {
                 newOutput[i] += o;
                 setCommandOutput(newOutput.slice());

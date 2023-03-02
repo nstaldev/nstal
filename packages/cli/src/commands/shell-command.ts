@@ -23,7 +23,7 @@ export const shellRunCommand = async (command: string, workingDir: WorkingDir, c
   })
 )
 
-export const shellStartCommand = async (command: string, workingDir: WorkingDir): Promise<number> => (
+export const shellStartCommand = async (command: string, workingDir: WorkingDir, context: CommandContext): Promise<void> => (
   new Promise((resolve, reject) => {
     console.log(`Run command "${command}" from directory ${workingDir.currentDir}`);
 
@@ -36,8 +36,11 @@ export const shellStartCommand = async (command: string, workingDir: WorkingDir)
       reject(code);
     });
 
+    // Should we send the output of such a command? What happens once we return?
+    // For now, just ignore the output
+
     setTimeout(() => {
-      resolve(0);
+      resolve();
     }, 500);
   })
 )
