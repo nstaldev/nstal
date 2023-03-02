@@ -1,6 +1,6 @@
 {
   "name": "nstal",
-  "version": "0.1.5",
+  "version": "0.1.12",
   "description": "",
   "bin": "build/index.js",
   "main": "build/index.js",
