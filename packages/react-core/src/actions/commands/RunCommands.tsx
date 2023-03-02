@@ -45,7 +45,7 @@ export const RunCommands = (props: RunCommandsProps) => {
           if (cdDir) {
             const response = await action.agent?.shellCd(cdDir);
           } else {
-            const processCommand = props.nstalMethod === 'shellRunCommand'
+            const processCommand = props.nstalMethod === 'shellRunCommand' || !props.nstalMethod
               ? action.agent?.runCommand
               : action.agent?.startCommand;
             const response = await processCommand(props.commands[i], {
