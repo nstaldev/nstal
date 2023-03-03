@@ -13,6 +13,8 @@ export async function start(sessionCode: string, port: number) {
     host: 'localhost'
   });
 
+  console.log(`Listening on port ${port}...`);
+
   const pwd = new WorkingDir();
 
   initServer(server, sessionCode, {
