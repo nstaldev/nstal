@@ -9,8 +9,9 @@ export const initServer = (ws: Server, authToken: string, agent: LocalAgent) => 
 
   ws.register('authenticate', (params) => {
     if (params[0] !== authToken) {
-      throw new Error('Incorrect authentication token');
+      throw new Error(`Incorrect authentication token ${params[0]} (expecting ${authToken})`);
     } else {
+      console.log("Client authenticated");
       authenticated = true;
       return true;
     }
