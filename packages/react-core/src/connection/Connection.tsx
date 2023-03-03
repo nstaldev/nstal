@@ -42,7 +42,7 @@ export const Connection = (props: ConnectionProps) => {
     })();
   }, [ connecting, sessionCode, props ]);
 
-  const command = `npx nstal connect ${sessionCode}`;
+  const command = `npx nstal@latest connect ${sessionCode}`;
 
   return (
     <>
