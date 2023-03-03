@@ -7,8 +7,10 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "rollup -c",
-    "nstal": "ts-node src/index.ts"
+    "nstal": "ts-node src/index.ts",
+    "prebuild": "rm -rf build",
+    "build": "npm run prebuild && rollup -c",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
